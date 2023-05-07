@@ -1,4 +1,5 @@
 ﻿using DataBase;
+using MFCLibrary.DataBase.SqlActions.ServiceSqlActions;
 using MFCLibrary.Models;
 
 namespace MFCLibrary.DataBase.SqlActions
@@ -9,8 +10,23 @@ namespace MFCLibrary.DataBase.SqlActions
 
         internal void AddService(Service service)
         {
-            db.command.CommandText = $"INSERT INTO {db.ServiceTableName} (name, isUse) VALUES (\"{service.name}\", 0)";
-            db.command.ExecuteNonQuery();
+            SqlAddService.AddService(db, service);
+        }
+        internal void UpdateService(string updateRow, object newValue, int id)
+        {
+            SqlUpdateService.UpdateService(db, updateRow, newValue, id);
+        }
+        internal void DeleteService(int deleteId)
+        {
+            SqlDeleteService.DeleteService(db, deleteId);
+        }
+        internal bool CheckService(string checkRow, object checkValue)
+        {
+            return SqlCheckService.CheckService(db, checkRow, checkValue);
+        }
+        internal string TakeValueService(string row, string checkRow, object checkValue)
+        {
+            return SqlTakeValueService.TakeValueService(db, row, checkRow, checkValue);
         }
     }
 }

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBase.Entities
+namespace MFCLibrary.useCases.ServiceUseCases
 {
-    internal class Service
+    internal class PrintService
     {
-        internal string name { get; private set; } = "";
     }
 }

@@ -7,8 +7,8 @@ namespace MFCLibrary.useCases.ServiceUseCases
 {
     internal class AddService
     {
-        static ServiceSql serviceSql { get; } = new ServiceSql();
-        static Service? service;
+        static private ServiceSql serviceSql { get; } = new ServiceSql();
+        static private Service? service;
         static string? name = "";
 
         internal static void Add()

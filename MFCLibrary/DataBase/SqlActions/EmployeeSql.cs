@@ -1,7 +1,10 @@
 ﻿using DataBase;
+using MFCLibrary.DataBase.SqlActions.ClientSqlActions;
+using MFCLibrary.DataBase.SqlActions.EmployeeSqlActions;
 using MFCLibrary.Models;
-using System.Data;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Data.SQLite;
+using System.Xml;
 
 namespace MFCLibrary.DataBase.SqlActions
 {
@@ -10,23 +13,15 @@ namespace MFCLibrary.DataBase.SqlActions
         MFCDataBase db { get; } = new MFCDataBase();
         internal void AddEmployee(Employee employee)
         {
-            db.command.CommandText = $"INSERT INTO {db.EmployeeTableName} (fullnameEmployee, birthday, windowNumber) VALUES (\"{employee.fullnameEmployee}\",\"{employee.birthday}\",\"{employee.windowNumber}\")";
-            db.command.ExecuteNonQuery();
+            SqlAddEmployee.AddEmployee(db, employee);
         }
-        internal bool CheckEmployee(int windowNumber)
+        internal string TakeValueEmployee(string row, string checkRow, object checkValue)
         {
-            db.command.CommandText = $"SELECT windowNumber FROM {db.EmployeeTableName}";
-            SQLiteDataReader reader = db.command.ExecuteReader();
-            while(reader.Read())
-            {
-                if (reader.GetInt32(0) == windowNumber)
-                {
-                    reader.Close();
-                    return true;
-                }    
-            }
-            reader.Close();
-            return false;
+            return SqlTakeValueEmployee.TakeValueEmployee(db, row, checkRow, checkValue);
+        }
+        internal bool CheckEmployee(string checkRow, object checkValue)
+        {
+            return SqlCheckEmployee.CheckEmployee(db, checkRow, checkValue);
         }
     }
 }

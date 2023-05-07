@@ -1,12 +1,7 @@
-﻿using MFCLibrary.Models;
-using MFCLibrary.useCases.ClientUseCases;
+﻿using MFCLibrary.useCases.ClientUseCases;
 using MFCLibrary.useCases.EmployeeUseCases;
+using MFCLibrary.useCases.ServicesUseCases;
 using MFCLibrary.useCases.ServiceUseCases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MFCLibrary.Menu
 {
@@ -44,6 +39,14 @@ namespace MFCLibrary.Menu
                     case "3":
                         Console.Clear();
                         AddService.Add();
+                        break;
+                    case "4":
+                        Console.Clear();
+                        AddServicing.Add();
+                        break;
+                    case "11":
+                        Console.Clear();
+                        DeleteService.Delete();
                         break;
                 }
                 if (temp != "")

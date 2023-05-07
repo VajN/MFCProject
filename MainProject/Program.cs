@@ -1,5 +1,4 @@
-﻿using DataBase;
-using MFCLibrary.Menu;
+﻿using MFCLibrary.Menu;
 
 namespace MainProject
 {

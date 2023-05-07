@@ -1,4 +1,5 @@
 ﻿using DataBase;
+using MFCLibrary.DataBase.SqlActions.ClientSqlActions;
 using MFCLibrary.Models;
 using System.Data.SQLite;
 
@@ -9,23 +10,12 @@ namespace MFCLibrary.DataBase.SqlActions
         MFCDataBase db { get; } = new MFCDataBase();
         internal void AddClient(Client client)
         {
-            db.command.CommandText = $"INSERT INTO {db.ClientTableName} (fullnameClient, passport) VALUES (\"{client.fullnameClient}\",\"{client.passport}\")";
-            db.command.ExecuteNonQuery();
+            SqlAddClient.AddClient(db, client);
         }
-        internal bool CheckClient(string passport)
+
+        internal bool CheckClient(string checkRow, object checkValue)
         {
-            db.command.CommandText = $"SELECT passport FROM {db.ClientTableName}";
-            SQLiteDataReader reader = db.command.ExecuteReader();
-            while (reader.Read())
-            {
-                if (reader.GetString(0) == passport)
-                {
-                    reader.Close();
-                    return true;
-                }
-            }
-            reader.Close();
-            return false;
+            return SqlCheckClient.CheckClient(db, checkRow, checkValue);
         }
     }
 }

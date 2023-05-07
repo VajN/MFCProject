@@ -1,17 +1,12 @@
 ﻿using MFCLibrary.DataBase.SqlActions;
 using MFCLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MFCLibrary.useCases.ClientUseCases
 {
     internal class AddClient
     {
-        static ClientSql clientSql { get; } = new ClientSql();
-        static Client? client;
+        static private ClientSql clientSql = new ClientSql();
+        static private Client? client;
 
         static internal string? fullnameClient { get; private set; } = "";
         static internal string? passport { get; private set; } = "";
@@ -59,7 +54,7 @@ namespace MFCLibrary.useCases.ClientUseCases
                         continue;
                     }
                 }
-                if (clientSql.CheckClient(passport))
+                if (clientSql.CheckClient("passport", passport))
                 {
                     Console.WriteLine("Клиент с данными паспортными данными уже числится в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     passport = "";
