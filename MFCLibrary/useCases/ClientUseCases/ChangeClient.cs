@@ -13,10 +13,11 @@ namespace MFCLibrary.useCases.ClientUseCases
     {
         static ClientSql clientSql = new ClientSql();
 
-        static int changeId = 0;
-        static string newPassport = "";
         public static void Change()
         {
+            int changeId = 0;
+            string newPassport = "";
+
             PrintClient.Print(clientSql.TakeDataClient());
             while (true)
             {

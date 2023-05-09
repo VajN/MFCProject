@@ -9,12 +9,14 @@ namespace MFCLibrary.useCases.ServicesUseCases
         static EmployeeSql employeeSql = new EmployeeSql();
         static ServicingSql servicingSql = new ServicingSql();
 
-        static string criteria = "", search = "", numberQueue = "";
-        static int id = 0;
-        static DateOnly date;
-
         public static void Search()
         {
+            string criteria = "";
+            string search = "";
+            string numberQueue = "";
+            int id = 0;
+            DateOnly date;
+
             while (true)
             {
                 if (criteria == "")
@@ -125,7 +127,6 @@ namespace MFCLibrary.useCases.ServicesUseCases
                     Console.Clear();
                     continue;
                 }
-                criteria = "";
                 break;
             }
         }

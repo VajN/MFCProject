@@ -10,10 +10,12 @@ namespace MFCLibrary.useCases.ServicingUseCases
         static EmployeeSql employeeSql = new EmployeeSql();
         static ClientSql clientSql = new ClientSql();
 
-        static string criteria = "";
-        static DateOnly dateOne, dateTwo;
         public static void ServicingStatistics()
         {
+            string criteria = "";
+            DateOnly dateOne;
+            DateOnly dateTwo;
+
             while (true)
             {
                 if (criteria == "")
@@ -77,7 +79,6 @@ namespace MFCLibrary.useCases.ServicingUseCases
                     Console.WriteLine("Статистика обслуживания:\n");
                     PrintAll(servicingSql.TakeDataServicing());
                 }
-                criteria = "";
                 break;
             }
         }

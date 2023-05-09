@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MFCLibrary.DataBase.SqlActions.ServiceSqlActions
+namespace MFCLibrary.DataBase.SqlActions.AuthorizedServisingSqlActions
 {
-    internal static class SqlTakeDataService
+    internal static class SqlTakeDataAuthorizedServicing
     {
-        internal static List<string[]> TakeDataService(MFCDataBase db)
+        internal static List<string[]> TakeDataServicing(MFCDataBase db)
         {
             List<string[]> result = new List<string[]>();
             string temp = "";
 
-            db.command = new SQLiteCommand($"SELECT * FROM {db.ServiceTableName}", db.connection);
+            db.command = new SQLiteCommand($"SELECT * FROM {db.AutorizedServicingTableName}", db.connection);
             SQLiteDataReader reader = db.command.ExecuteReader();
 
             while (reader.Read())

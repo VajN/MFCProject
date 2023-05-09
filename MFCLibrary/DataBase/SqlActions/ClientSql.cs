@@ -8,9 +8,9 @@ namespace MFCLibrary.DataBase.SqlActions
     {
         MFCDataBase db { get; } = new MFCDataBase();
 
-        internal void AddClient(Client client)
+        internal void AddClient(Client client, bool isAuthorized)
         {
-            SqlAddClient.AddClient(db, client);
+            SqlAddClient.AddClient(db, client, isAuthorized);
         }
         internal void UpdateClient(string updateRow, object newValue, int id)
         {

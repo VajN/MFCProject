@@ -10,11 +10,12 @@ namespace MFCLibrary.useCases.ClientUseCases
         static ClientSql clientSql = new ClientSql();
         static ServicingSql servicingSql = new ServicingSql();
 
-        static string criteria = "";
-        static string search = "";
-        static int clientId = 0;
         public static void Search()
         {
+            string criteria = "";
+            string search = "";
+            int clientId = 0;
+
             while (true)
             {
                 if (criteria == "")
@@ -78,7 +79,6 @@ namespace MFCLibrary.useCases.ClientUseCases
                     Console.WriteLine("Оказанные услуги: ");
                     PrintServicing.Print(servicingSql.TakeDataServicing(), "clientId", clientId);
                 }
-                criteria = "";
                 break;
             }
         }

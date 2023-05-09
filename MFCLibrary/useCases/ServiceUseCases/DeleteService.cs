@@ -7,9 +7,10 @@ namespace MFCLibrary.useCases.ServiceUseCases
     {
         static private ServiceSql serviceSql = new ServiceSql();
 
-        static int deleteId = 0;
         internal static void Delete()
         {
+            int deleteId = 0;
+
             PrintService.Print(serviceSql.TakeDataService());
             while (true)
             {
@@ -45,11 +46,10 @@ namespace MFCLibrary.useCases.ServiceUseCases
                         continue;
                     }
                 }
+                serviceSql.DeleteService(deleteId);
+                Console.WriteLine("Услуга удалена");
                 break;
             }
-            serviceSql.DeleteService(deleteId);
-            Console.WriteLine("Услуга удалена");
-            
         }
     }
 }

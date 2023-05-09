@@ -8,11 +8,11 @@ namespace MFCLibrary.useCases.ClientUseCases
         static private ClientSql clientSql = new ClientSql();
         static private Client? client;
 
-        static internal string? fullnameClient { get; private set; } = "";
-        static internal string? passport { get; private set; } = "";
-
-        internal static void Add()
+        internal static void Add(bool isAuthorized)
         {
+            string fullnameClient = "";
+            string passport;
+
             while (true)
             {
                 if (fullnameClient == "")
@@ -21,7 +21,6 @@ namespace MFCLibrary.useCases.ClientUseCases
                     fullnameClient = Console.ReadLine();
                     continue;
                 }
-
                 Console.Write("Введите паспортные данные: ");
                 passport = Console.ReadLine();
                 if (passport.Length != 11)
@@ -48,7 +47,7 @@ namespace MFCLibrary.useCases.ClientUseCases
                     }
                     catch
                     {
-                        Console.WriteLine("Неверный формат! Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                        Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                         if (Console.ReadLine() == "...")
                             return;
                         continue;
@@ -65,7 +64,7 @@ namespace MFCLibrary.useCases.ClientUseCases
                 break;
             }
             client = new Client(fullnameClient, passport);
-            clientSql.AddClient(client);
+            clientSql.AddClient(client, isAuthorized);
             Console.WriteLine("Клиент добавлен в базу данных\n");
         }
     }

@@ -10,11 +10,11 @@ namespace MFCLibrary.DataBase.SqlActions.ClientSqlActions
 {
     internal static class SqlTakeDataClient
     {
-        static List<string[]> result = new List<string[]>();
-        static string temp = "";
-
         internal static List<string[]> TakeDataClient(MFCDataBase db)
         {
+            List<string[]> result = new List<string[]>();
+            string temp = "";
+
             db.command = new SQLiteCommand($"SELECT * FROM {db.ClientTableName}", db.connection);
             SQLiteDataReader reader = db.command.ExecuteReader();
 

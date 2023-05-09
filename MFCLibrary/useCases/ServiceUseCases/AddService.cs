@@ -9,10 +9,11 @@ namespace MFCLibrary.useCases.ServiceUseCases
     {
         static private ServiceSql serviceSql { get; } = new ServiceSql();
         static private Service? service;
-        static string? name = "";
 
         internal static void Add()
         {
+            string name = "";
+
             while (true)
             {
                 Console.Write("Введите название услуги: ");

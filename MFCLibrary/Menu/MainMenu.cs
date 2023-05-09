@@ -1,4 +1,5 @@
-﻿using MFCLibrary.useCases.ClientUseCases;
+﻿using MFCLibrary.Menu.Second;
+using MFCLibrary.useCases.ClientUseCases;
 using MFCLibrary.useCases.EmployeeUseCases;
 using MFCLibrary.useCases.ServicesUseCases;
 using MFCLibrary.useCases.ServiceUseCases;
@@ -35,7 +36,7 @@ namespace MFCLibrary.Menu
                         break;
                     case "2":
                         Console.Clear();
-                        AddClient.Add();
+                        MenuAddClient.Menu();
                         break;
                     case "3":
                         Console.Clear();
@@ -43,7 +44,7 @@ namespace MFCLibrary.Menu
                         break;
                     case "4":
                         Console.Clear();
-                        AddServicing.Add();
+                        MenuAddServicing.Menu();
                         break;
                     case "5":
                         Console.Clear();

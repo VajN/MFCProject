@@ -4,8 +4,8 @@
     {
         internal string fullnameEmployee { get; private set; } = "";
         internal DateOnly birthday { get; private set; } = new DateOnly();
-        internal int windowNumber { get; private set; } = 0;
-        internal Employee(string fullnameEmployee, DateOnly birthday, int windowNumber) 
+        internal string windowNumber { get; private set; } = "";
+        internal Employee(string fullnameEmployee, DateOnly birthday, string windowNumber) 
         {
             this.fullnameEmployee = fullnameEmployee;
             this.birthday = birthday;

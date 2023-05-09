@@ -13,9 +13,10 @@ namespace MFCLibrary.useCases.EmployeeUseCases
         static EmployeeSql employeeSql = new EmployeeSql();
         static DelEmployeeSql delEmployeeSql = new DelEmployeeSql();
 
-        static int deleteId = 0;
         internal static void Delete()
         {
+            int deleteId = 0;
+
             PrintEmployee.Print(employeeSql.TakeDataEmployee());
             while (true)
             {
@@ -43,11 +44,11 @@ namespace MFCLibrary.useCases.EmployeeUseCases
                         continue;
                     }
                 }
+                delEmployeeSql.TransferDelEmployee(deleteId);
+                employeeSql.DeleteEmployee(deleteId);
+                Console.WriteLine("Сотрудник удалён из базы данных\n");
                 break;
             }
-            delEmployeeSql.TransferDelEmployee(deleteId);
-            employeeSql.DeleteEmployee(deleteId);
-            Console.WriteLine("Сотрудник удалён из базы данных\n");
         }
     }
 }

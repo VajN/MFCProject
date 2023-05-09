@@ -9,10 +9,11 @@ namespace MFCLibrary.useCases.EmployeeUseCases
     {
         static EmployeeSql employeeSql = new EmployeeSql();
 
-        static int changeId = 0;
-        static int newWindowNumber = 0;
         public static void Change()
         {
+            int changeId = 0;
+            int newWindowNumber = 0;
+
             PrintEmployee.Print(employeeSql.TakeDataEmployee());
             while (true)
             {

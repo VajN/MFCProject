@@ -7,13 +7,14 @@ namespace MFCLibrary.useCases.EmployeeUseCases
     internal static class AddEmployee
     {
         static private EmployeeSql employeeSql = new EmployeeSql();
-
-        static string? fullnameEmployee = "";
-        static int windowNumber = 0;
-        static DateOnly birthday = new DateOnly();
+        static private Employee? employee;
 
         internal static void Add()
         {
+            string fullnameEmployee = "";
+            int windowNumber = 0;
+            DateOnly birthday = new DateOnly();
+
             while (true)
             {
                 if (fullnameEmployee == "")
@@ -40,7 +41,7 @@ namespace MFCLibrary.useCases.EmployeeUseCases
                 }
                 if (windowNumber == 0)
                 {
-                    Console.Write("Введите номер окна обслуживания (от 1 до 20): ");
+                    Console.Write("Введите номер окна обслуживания (от 1 до 23): ");
                     try
                     {
                         windowNumber = Convert.ToInt32(Console.ReadLine());
@@ -53,7 +54,7 @@ namespace MFCLibrary.useCases.EmployeeUseCases
                             return;
                         continue;
                     }
-                    if (windowNumber < 1 || windowNumber > 20)
+                    if (windowNumber < 1 || windowNumber > 23)
                     {
                         Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                         windowNumber = 0;
@@ -61,7 +62,7 @@ namespace MFCLibrary.useCases.EmployeeUseCases
                             return;
                         continue;
                     }
-                    if (employeeSql.CheckEmployee("windowNumber", windowNumber))
+                    if (employeeSql.CheckEmployee("windowNumber", Convert.ToString(windowNumber)))
                     {
                         Console.WriteLine("Данное окно обслуживания уже числится за другим сотрудником. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                         windowNumber = 0;
@@ -72,7 +73,10 @@ namespace MFCLibrary.useCases.EmployeeUseCases
                 }
                 break;
             }
-            Employee employee = new Employee(fullnameEmployee, birthday, windowNumber);
+            if(windowNumber >= 21 && windowNumber <= 23)
+                employee = new Employee(fullnameEmployee, birthday, "Г" + Convert.ToString(windowNumber));
+            else
+                employee = new Employee(fullnameEmployee, birthday, Convert.ToString(windowNumber));
             employeeSql.AddEmployee(employee);
             Console.WriteLine("Сотрудник добавлен в базу данных\n");
         }

@@ -3,13 +3,13 @@ using System.Data.SQLite;
 
 namespace MFCLibrary.DataBase.SqlActions.EmployeeSqlActions
 {
-    internal class SqlTakeDataEmployee
+    internal static class SqlTakeDataEmployee
     {
-        static List<string[]> result = new List<string[]>();
-        static string temp = "";
-
         internal static List<string[]> TakeDataEmployee(MFCDataBase db)
         {
+            List<string[]> result = new List<string[]>();
+            string temp = "";
+
             db.command = new SQLiteCommand($"SELECT * FROM {db.EmployeeTableName}", db.connection);
             SQLiteDataReader reader = db.command.ExecuteReader();
 

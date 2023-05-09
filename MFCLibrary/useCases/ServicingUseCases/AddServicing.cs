@@ -1,5 +1,6 @@
 ﻿using MFCLibrary.DataBase.SqlActions;
 using MFCLibrary.Models;
+using System;
 
 namespace MFCLibrary.useCases.ServicesUseCases
 {
@@ -10,91 +11,149 @@ namespace MFCLibrary.useCases.ServicesUseCases
         static private EmployeeSql employeeSql = new EmployeeSql();
         static private ServiceSql serviceSql = new ServiceSql();
         static private Servicing? servicing;
-        static internal int employeeId { get; private set; } = 0;
-        static internal int windowNumber { get; private set; } = 0;
-        static internal DateTime dateTime { get; private set; } = new DateTime();
-        static internal string serviceName { get; private set; } = "";
-        static internal int serviceId { get; private set; } = 0;
-        static internal int clientId { get; private set; } = 0;
-        static internal string numberQueue { get; private set; } = "";
-        static private int num = 1;
 
         internal static void Add()
         {
-            while (true)
-            {
-                //Получение Id сотрудника
-                if (employeeId == 0)
-                {
-                    Console.Write("Введите id сотрудника, выполнившего обслуживание: ");
-                    try
-                    {
-                        employeeId = Convert.ToInt32(Console.ReadLine());
+            int employeeId;
+            int windowNumber;
+            DateTime dateTime;
+            string serviceName;
+            int serviceId;
+            int clientId;
+            string numberQueue;
 
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
-                        if (Console.ReadLine() == "...")
-                            return;
-                        continue;
-                    }
-                    if (!employeeSql.CheckEmployee("id", employeeId))
-                    {
-                        Console.WriteLine("Сотрудника с таким id нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
-                        employeeId = 0;
-                        if (Console.ReadLine() == "...")
-                            return;
-                        continue;
-                    }
-                }
-                //Получение номера окна
-                windowNumber = Convert.ToInt32(employeeSql.TakeValueEmployee("windowNumber", "id", employeeId));
-                //Получение текущих даты и времени
-                dateTime = DateTime.Now;
-                //Получение ID услуги
-                if (serviceId == 0)
-                {
-                    Console.Write("Введите ID необходимой услуги: ");
-                    serviceId = Convert.ToInt32(Console.ReadLine());
-                    if (!serviceSql.CheckService("id", serviceId))
-                    {
-                        Console.WriteLine("Услуги с таким ID нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
-                        serviceId = 0;
-                        if (Console.ReadLine() == "...")
-                            return;
-                        continue;
-                    }
-                    serviceName = serviceSql.TakeValueService("name", "id", serviceId);
-                }
-                //Получение Id клиента
-                if (clientId == 0)
-                {
-                    Console.Write("Введите id клиента, которому была предоставлена услуга: ");
-                    clientId = Convert.ToInt32(Console.ReadLine());
-                    if (!clientSql.CheckClient("id", clientId))
-                    {
-                        Console.WriteLine("Клиента с таким id нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
-                        clientId = 0;
-                        if (Console.ReadLine() == "...")
-                            return;
-                        continue;
-                    }
-                }
-                //Создание номера талона
-                foreach (string date in servicingSql.TakeRowServicing("date"))
-                {
-                    if (DateOnly.Parse(date) == DateOnly.FromDateTime(DateTime.Now))
-                        num++;
-                }
-                numberQueue += serviceName[0];
-                numberQueue += string.Format("{0:000}", num);
-                break;
-            }
-            servicing = new Servicing(employeeId, windowNumber, dateTime, serviceName, clientId, numberQueue);
+            //Получение Id сотрудника
+            employeeId = ReceiveEmployeeId();
+            if (employeeId == 0)
+                return;
+
+            //Получение номера окна
+            windowNumber = Convert.ToInt32(employeeSql.TakeValueEmployee("windowNumber", "id", employeeId));
+
+            //Получение текущих даты и времени
+            dateTime = DateTime.Now;
+
+            //Получение ID услуги
+            serviceId = ReceiveServiceId();
+            if (serviceId == 0)
+                return;
+            serviceName = serviceSql.TakeValueService("name", "id", serviceId);
+
+            //Получение Id клиента
+            clientId = ReceiveClientId();
+            if (clientId == 0)
+                return;
+
+            //Создание номера талона
+            numberQueue = CreateNumberQueue(serviceName);
+
+            servicing = new Servicing(employeeId, Convert.ToString(windowNumber), dateTime, serviceName, clientId, numberQueue);
             servicingSql.AddServicing(servicing);
             serviceSql.UpdateService("isUse", true, serviceId);
             Console.WriteLine("Операция обслуживания была добавлена");
+        }
+        //Получение ID сотрудника
+        private static int ReceiveEmployeeId()
+        {
+            int employeeId;
+
+            while (true)
+            {
+                Console.Write("Введите id сотрудника, выполнившего обслуживание: ");
+                try
+                {
+                    employeeId = Convert.ToInt32(Console.ReadLine());
+
+                }
+                catch
+                {
+                    Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                    if (Console.ReadLine() == "...")
+                        return 0;
+                    continue;
+                }
+                if (!employeeSql.CheckEmployee("id", employeeId))
+                {
+                    Console.WriteLine("Сотрудника с таким id нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                    if (Console.ReadLine() == "...")
+                        return 0;
+                    continue;
+                }
+                return employeeId;
+            }
+        }
+        //Получение ID услуги
+        private static int ReceiveServiceId()
+        {
+            int serviceId;
+
+            while (true)
+            {
+                Console.Write("Введите ID необходимой услуги: ");
+                try
+                {
+                    serviceId = Convert.ToInt32(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                    if (Console.ReadLine() == "...")
+                        return 0;
+                    continue;
+                }
+                if (!serviceSql.CheckService("id", serviceId))
+                {
+                    Console.WriteLine("Услуги с таким ID нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                    if (Console.ReadLine() == "...")
+                        return 0;
+                    continue;
+                }
+                return serviceId;
+            }
+        }
+        //Получение ID клиента
+        private static int ReceiveClientId()
+        {
+            int clientId;
+
+            while (true)
+            {
+                Console.Write("Введите id клиента, которому была предоставлена услуга: ");
+                try
+                {
+                    clientId = Convert.ToInt32(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                    if (Console.ReadLine() == "...")
+                        return 0;
+                    continue;
+                }
+                if (!clientSql.CheckClient("id", clientId))
+                {
+                    Console.WriteLine("Клиента с таким id нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                    if (Console.ReadLine() == "...")
+                        return 0;
+                    continue;
+                }
+                return clientId;
+            }
+        }
+        //Создание номера талона
+        private static string CreateNumberQueue(string serviceName)
+        {
+            string numberQueue = "";
+            int num = 1;
+            
+            foreach (string date in servicingSql.TakeRowServicing("date"))
+            {
+                if (DateOnly.Parse(date) == DateOnly.FromDateTime(DateTime.Now))
+                    num++;
+            }
+            numberQueue += serviceName[0];
+            numberQueue += string.Format("{0:000}", num);
+            return numberQueue;
         }
     }
 }
