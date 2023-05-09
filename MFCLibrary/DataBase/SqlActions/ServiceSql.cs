@@ -20,13 +20,17 @@ namespace MFCLibrary.DataBase.SqlActions
         {
             SqlDeleteService.DeleteService(db, deleteId);
         }
-        internal bool CheckService(string checkRow, object checkValue)
+        internal List<string[]> TakeDataService()
         {
-            return SqlCheckService.CheckService(db, checkRow, checkValue);
+            return SqlTakeDataService.TakeDataService(db);
         }
         internal string TakeValueService(string row, string checkRow, object checkValue)
         {
             return SqlTakeValueService.TakeValueService(db, row, checkRow, checkValue);
+        }
+        internal bool CheckService(string checkRow, object checkValue)
+        {
+            return SqlCheckService.CheckService(db, checkRow, checkValue);
         }
     }
 }

@@ -1,9 +1,5 @@
 ﻿using MFCLibrary.DataBase.SqlActions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MFCLibrary.useCases.Unique;
 
 namespace MFCLibrary.useCases.ServiceUseCases
 {
@@ -14,6 +10,7 @@ namespace MFCLibrary.useCases.ServiceUseCases
         static int deleteId = 0;
         internal static void Delete()
         {
+            PrintService.Print(serviceSql.TakeDataService());
             while (true)
             {
                 if (deleteId == 0)
@@ -39,7 +36,7 @@ namespace MFCLibrary.useCases.ServiceUseCases
                             return;
                         continue;
                     }
-                    if (Convert.ToBoolean(Convert.ToInt32(serviceSql.TakeValueService("isUse", "id", deleteId))))
+                    if (Convert.ToBoolean(serviceSql.TakeValueService("isUse", "id", deleteId)))
                     {
                         Console.WriteLine("Данная услуга уже оказывалась и не может быть удалена из базы данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                         deleteId = 0;

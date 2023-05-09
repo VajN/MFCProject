@@ -1,10 +1,5 @@
 ﻿using MFCLibrary.DataBase.SqlActions;
 using MFCLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace MFCLibrary.useCases.EmployeeUseCases
@@ -12,7 +7,6 @@ namespace MFCLibrary.useCases.EmployeeUseCases
     internal static class AddEmployee
     {
         static private EmployeeSql employeeSql = new EmployeeSql();
-        static private Employee? employee;
 
         static string? fullnameEmployee = "";
         static int windowNumber = 0;

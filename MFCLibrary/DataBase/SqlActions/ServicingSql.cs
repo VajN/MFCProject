@@ -17,6 +17,10 @@ namespace MFCLibrary.DataBase.SqlActions
         {
             SqlAddServicing.AddServicing(db, servicing);
         }
+        internal List<string[]> TakeDataServicing()
+        {
+            return SqlTakeDataServicing.TakeDataServicing(db);
+        }
         internal List<string> TakeRowServicing(string row)
         {
             return SqlTakeRowServicing.TakeRowServicing(db, row);

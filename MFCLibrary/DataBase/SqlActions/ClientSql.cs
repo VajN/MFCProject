@@ -1,18 +1,29 @@
 ﻿using DataBase;
 using MFCLibrary.DataBase.SqlActions.ClientSqlActions;
 using MFCLibrary.Models;
-using System.Data.SQLite;
 
 namespace MFCLibrary.DataBase.SqlActions
 {
     internal class ClientSql
     {
         MFCDataBase db { get; } = new MFCDataBase();
+
         internal void AddClient(Client client)
         {
             SqlAddClient.AddClient(db, client);
         }
-
+        internal void UpdateClient(string updateRow, object newValue, int id)
+        {
+            SqlUpdateClient.UpdateClient(db, updateRow, newValue, id);
+        }
+        internal List<string[]> TakeDataClient()
+        {
+            return SqlTakeDataClient.TakeDataClient(db);
+        }
+        internal string TakeValueClient(string row, string checkRow, object checkValue)
+        {
+            return SqlTakeValueClient.TakeValueClient(db, row, checkRow, checkValue);
+        }
         internal bool CheckClient(string checkRow, object checkValue)
         {
             return SqlCheckClient.CheckClient(db, checkRow, checkValue);

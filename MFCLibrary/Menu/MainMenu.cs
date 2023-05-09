@@ -2,6 +2,7 @@
 using MFCLibrary.useCases.EmployeeUseCases;
 using MFCLibrary.useCases.ServicesUseCases;
 using MFCLibrary.useCases.ServiceUseCases;
+using MFCLibrary.useCases.ServicingUseCases;
 
 namespace MFCLibrary.Menu
 {
@@ -43,6 +44,30 @@ namespace MFCLibrary.Menu
                     case "4":
                         Console.Clear();
                         AddServicing.Add();
+                        break;
+                    case "5":
+                        Console.Clear();
+                        ChangeEmployee.Change();
+                        break;
+                    case "6":
+                        Console.Clear();
+                        ChangeClient.Change();
+                        break;
+                    case "7":
+                        Console.Clear();
+                        SearchClient.Search();
+                        break;
+                    case "8":
+                        Console.Clear();
+                        SearchServicing.Search();
+                        break;
+                    case "9":
+                        Console.Clear();
+                        ViewServicingStatistics.ServicingStatistics();
+                        break;
+                    case "10":
+                        Console.Clear();
+                        DeleteEmployee.Delete();
                         break;
                     case "11":
                         Console.Clear();

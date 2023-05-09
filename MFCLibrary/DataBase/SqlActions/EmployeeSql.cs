@@ -1,10 +1,6 @@
 ﻿using DataBase;
-using MFCLibrary.DataBase.SqlActions.ClientSqlActions;
 using MFCLibrary.DataBase.SqlActions.EmployeeSqlActions;
 using MFCLibrary.Models;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Data.SQLite;
-using System.Xml;
 
 namespace MFCLibrary.DataBase.SqlActions
 {
@@ -14,6 +10,18 @@ namespace MFCLibrary.DataBase.SqlActions
         internal void AddEmployee(Employee employee)
         {
             SqlAddEmployee.AddEmployee(db, employee);
+        }
+        internal void DeleteEmployee(int deleteId)
+        {
+            SqlDeleteEmployee.DeleteEmployee(db, deleteId);
+        }
+        internal void UpdateEmployee(string updateRow, object newValue, int id)
+        {
+            SqlUpdateEmployee.UpdateEmployee(db, updateRow, newValue, id);
+        }
+        internal List<string[]> TakeDataEmployee()
+        {
+            return SqlTakeDataEmployee.TakeDataEmployee(db);
         }
         internal string TakeValueEmployee(string row, string checkRow, object checkValue)
         {

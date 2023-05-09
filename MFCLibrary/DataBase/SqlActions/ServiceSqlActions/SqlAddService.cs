@@ -12,7 +12,7 @@ namespace MFCLibrary.DataBase.SqlActions.ServiceSqlActions
     {
         internal static void AddService(MFCDataBase db, Service service)
         {
-            db.command.CommandText = $"INSERT INTO {db.ServiceTableName} (name, isUse) VALUES (\"{service.name}\", 0)";
+            db.command.CommandText = $"INSERT INTO {db.ServiceTableName} (name, isUse) VALUES (\"{service.name}\", false)";
             db.command.ExecuteNonQuery();
         }
     }
