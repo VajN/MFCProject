@@ -1,5 +1,6 @@
 ﻿using MFCLibrary.DataBase.SqlActions;
 using MFCLibrary.Models;
+using MFCLibrary.useCases.Unique;
 using System;
 
 namespace MFCLibrary.useCases.ServicesUseCases
@@ -59,6 +60,8 @@ namespace MFCLibrary.useCases.ServicesUseCases
 
             while (true)
             {
+                Console.WriteLine("Сотрудники:");
+                PrintEmployee.PrintOrdinary(employeeSql.TakeDataEmployee());
                 Console.Write("Введите id сотрудника, выполнившего обслуживание: ");
                 try
                 {
@@ -70,6 +73,7 @@ namespace MFCLibrary.useCases.ServicesUseCases
                     Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return 0;
+                    Console.Clear();
                     continue;
                 }
                 if (!employeeSql.CheckEmployee("id", employeeId))
@@ -77,8 +81,10 @@ namespace MFCLibrary.useCases.ServicesUseCases
                     Console.WriteLine("Сотрудника с таким id нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return 0;
+                    Console.Clear();
                     continue;
                 }
+                Console.Clear();
                 return employeeId;
             }
         }
@@ -89,6 +95,8 @@ namespace MFCLibrary.useCases.ServicesUseCases
 
             while (true)
             {
+                Console.WriteLine("Услуги: ");
+                PrintService.Print(serviceSql.TakeDataService());
                 Console.Write("Введите ID необходимой услуги: ");
                 try
                 {
@@ -99,6 +107,7 @@ namespace MFCLibrary.useCases.ServicesUseCases
                     Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return 0;
+                    Console.Clear();
                     continue;
                 }
                 if (!serviceSql.CheckService("id", serviceId))
@@ -106,8 +115,10 @@ namespace MFCLibrary.useCases.ServicesUseCases
                     Console.WriteLine("Услуги с таким ID нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return 0;
+                    Console.Clear();
                     continue;
                 }
+                Console.Clear();
                 return serviceId;
             }
         }
@@ -118,6 +129,8 @@ namespace MFCLibrary.useCases.ServicesUseCases
 
             while (true)
             {
+                Console.WriteLine("Клиенты: ");
+                PrintClient.PrintOrdinary(clientSql.TakeDataClient());
                 Console.Write("Введите id клиента, которому была предоставлена услуга: ");
                 try
                 {
@@ -128,6 +141,7 @@ namespace MFCLibrary.useCases.ServicesUseCases
                     Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return 0;
+                    Console.Clear();
                     continue;
                 }
                 if (!clientSql.CheckClient("id", clientId))
@@ -135,8 +149,10 @@ namespace MFCLibrary.useCases.ServicesUseCases
                     Console.WriteLine("Клиента с таким id нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return 0;
+                    Console.Clear();
                     continue;
                 }
+                Console.Clear();
                 return clientId;
             }
         }

@@ -1,5 +1,6 @@
 ﻿using MFCLibrary.DataBase.SqlActions;
 using MFCLibrary.Models;
+using MFCLibrary.useCases.Unique;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,13 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
 
         internal static void Add()
         {
-            int employeeId = 0;
-            string windowNumber = "";
-            DateOnly date = new DateOnly();
-            TimeOnly time = new TimeOnly();
-            string serviceName = "";
-            int serviceId = 0;
-            int clientId = 0;
+            int employeeId;
+            string windowNumber;
+            DateOnly date;
+            TimeOnly time;
+            string serviceName;
+            int serviceId;
+            int clientId;
 
             while (true)
             {
@@ -31,8 +32,8 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
                 windowNumber = ReceiveWindowNumber();
                 if (windowNumber == "")
                     return;
-                //Получение ID сотрудника
 
+                //Получение ID сотрудника
                 employeeId = Convert.ToInt32(employeeSql.TakeValueEmployee("id", "windowNumber", windowNumber));
 
                 //Получение текущих даты и времени
@@ -58,6 +59,8 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
             serviceSql.UpdateService("isUse", true, serviceId);
             Console.WriteLine("Операция обслуживания была добавлена");
         }
+
+
         //Получение номера окна обслуживания
         private static string ReceiveWindowNumber()
         {
@@ -67,11 +70,23 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
             {
                 Console.Write("Введите номер окна обслуживания(формат Г**, где * - номер окна обслуживания): ");
                 windowNumber = Console.ReadLine();
-                if (char.IsDigit(windowNumber[0]))
+                try
+                {
+                    if (char.IsDigit(windowNumber[0]))
+                    {
+                        Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                        if (Console.ReadLine() == "...")
+                            return "";
+                        Console.Clear();
+                        continue;
+                    }
+                }
+                catch
                 {
                     Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return "";
+                    Console.Clear();
                     continue;
                 }
                 if (!employeeSql.CheckEmployee("windowNumber", windowNumber))
@@ -79,8 +94,10 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
                     Console.WriteLine("Сотрудника с таким номером окна обслуживания нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return "";
+                    Console.Clear();
                     continue;
                 }
+                Console.Clear();
                 return windowNumber;
             }
         }
@@ -91,6 +108,8 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
 
             while (true)
             {
+                Console.WriteLine("Услуги: ");
+                PrintService.Print(serviceSql.TakeDataService());
                 Console.Write("Введите ID необходимой услуги: ");
                 try
                 {
@@ -101,6 +120,7 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
                     Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return 0;
+                    Console.Clear();
                     continue;
                 }
                 if (!serviceSql.CheckService("id", serviceId))
@@ -108,8 +128,10 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
                     Console.WriteLine("Услуги с таким ID нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return 0;
+                    Console.Clear();
                     continue;
                 }
+                Console.Clear();
                 return serviceId;
             }
         }
@@ -120,6 +142,8 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
 
             while (true)
             {
+                Console.WriteLine("Клиенты: ");
+                PrintClient.PrintSpecial(clientSql.TakeDataClient());
                 Console.Write("Введите id клиента, которому была предоставлена услуга: ");
                 try
                 {
@@ -130,6 +154,7 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
                     Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return 0;
+                    Console.Clear();
                     continue;
                 }
                 if (!clientSql.CheckClient("id", clientId))
@@ -137,6 +162,7 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
                     Console.WriteLine("Клиента с таким id нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return 0;
+                    Console.Clear();
                     continue;
                 }
                 if (!Convert.ToBoolean(clientSql.TakeValueClient("isAuthorized", "id", clientId)))
@@ -144,8 +170,10 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
                     Console.WriteLine("Данный клиент не был зарегистрирован через ГосУслуги. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return 0;
+                    Console.Clear();
                     continue;
                 }
+                Console.Clear();
                 return clientId;
             }
         }
@@ -166,6 +194,7 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
                     Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return TimeOnly.Parse("0:00");
+                    Console.Clear();
                     continue;
 
                 }
@@ -174,6 +203,7 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
                     Console.WriteLine("Необходимо ввести время в промежутке от 9:00 до 19:00. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return TimeOnly.Parse("0:00");
+                    Console.Clear();
                     continue;
                 }
                 if (time.Minute % 15 != 0)
@@ -181,6 +211,7 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
                     Console.WriteLine("Необходимо ввести время с интервалом в 15 минут. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                     if (Console.ReadLine() == "...")
                         return TimeOnly.Parse("0:00");
+                    Console.Clear();
                     continue;
                 }
                 if(authorizedServicingSql.CheckAuthorizedServicing("date", Convert.ToString(DateOnly.FromDateTime(DateTime.Now))))
@@ -190,9 +221,11 @@ namespace MFCLibrary.useCases.AuthorizedServicingUseCases
                         Console.WriteLine("Данное время уже занято другой операцией обслуживания. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                         if (Console.ReadLine() == "...")
                             return TimeOnly.Parse("0:00");
+                        Console.Clear();
                         continue;
                     }
                 }
+                Console.Clear();
                 return time;
             }
         }

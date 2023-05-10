@@ -22,5 +22,9 @@ namespace MFCLibrary.DataBase.SqlActions
         {
             return SqlCheckAuthorizedServicing.CheckAuthorizedServicing(db, checkRow, CheckValue);
         }
+        internal List<string[]> TakeDataAuthorizedServicing()
+        {
+            return SqlTakeDataAuthorizedServicing.TakeDataServicing(db);
+        }
     }
 }

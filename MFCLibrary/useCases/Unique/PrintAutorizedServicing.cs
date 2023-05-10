@@ -35,5 +35,12 @@ namespace MFCLibrary.useCases.Unique
                 }
             }
         }
+        internal static void Print(string[] list)
+        {
+            fullnameEmployee = employeeSql.TakeValueEmployee("fullnameEmployee", "id", list[0]);
+            fullnameClient = clientSql.TakeValueClient("fullnameClient", "id", list[5]);
+            Console.WriteLine($"{list[2]} {list[3]}| Услуга: {list[4]}| Окно: {list[1]}| Сотрудник: {fullnameEmployee}({list[0]})| Клиент: {fullnameClient}({list[5]})");
+            Console.WriteLine("==========================================");
+        }
     }
 }

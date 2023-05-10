@@ -1,6 +1,7 @@
 ﻿
 
 using MFCLibrary.DataBase.SqlActions;
+using MFCLibrary.Models;
 using MFCLibrary.useCases.Unique;
 
 namespace MFCLibrary.useCases.EmployeeUseCases
@@ -12,9 +13,9 @@ namespace MFCLibrary.useCases.EmployeeUseCases
         public static void Change()
         {
             int changeId = 0;
-            int newWindowNumber = 0;
+            string newWindowNumber = "";
 
-            PrintEmployee.Print(employeeSql.TakeDataEmployee());
+            PrintEmployee.PrintAll(employeeSql.TakeDataEmployee());
             while (true)
             {
                 if (changeId == 0)
@@ -27,34 +28,40 @@ namespace MFCLibrary.useCases.EmployeeUseCases
                         changeId = 0;
                         if (Console.ReadLine() == "...")
                             return;
+                        Console.Clear();
                         continue;
                     }
+                    Console.Clear();
                 }
-                if (newWindowNumber == 0)
+                if (newWindowNumber == "")
                 {
-                    Console.Write("Введите новый номер окна обслуживания (от 1 до 20): ");
-                    newWindowNumber = Convert.ToInt32(Console.ReadLine());
-                    if (newWindowNumber < 1 || newWindowNumber > 20)
+                    Console.Write("Введите новый номер окна обслуживания (от 1 до 23): ");
+                    newWindowNumber = Console.ReadLine();
+                    if (Convert.ToInt32(newWindowNumber) < 1 || Convert.ToInt32(newWindowNumber) > 23)
                     {
                         Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                         if (Console.ReadLine() == "...")
                             break;
-                        newWindowNumber = 0;
+                        newWindowNumber = "";
+                        Console.Clear();
                         continue;
                     }
                     if (employeeSql.CheckEmployee("windowNumber", newWindowNumber))
                     {
                         Console.WriteLine("Данное окно обслуживания уже занято другим сотрудником. Попробуйте ввести снова, либо вернитесь в меню: <...>");
-                        newWindowNumber = 0;
+                        newWindowNumber = "";
                         if (Console.ReadLine() == "...")
                             return;
+                        Console.Clear();
                         continue;
                     }
                 }
+                if (Convert.ToInt32(newWindowNumber) >= 21 && Convert.ToInt32(newWindowNumber) <= 23)
+                    newWindowNumber = "Г" + newWindowNumber;
+                employeeSql.UpdateEmployee("windowNumber", newWindowNumber, changeId);
+                Console.WriteLine("Данные сотрудника изменены\n");
                 break;
             }
-            employeeSql.UpdateEmployee("windowNumber", newWindowNumber, changeId);
-            Console.WriteLine("Данные сотрудника изменены\n");
         }
     }
 }

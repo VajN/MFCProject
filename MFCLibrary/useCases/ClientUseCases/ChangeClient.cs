@@ -18,21 +18,36 @@ namespace MFCLibrary.useCases.ClientUseCases
             int changeId = 0;
             string newPassport = "";
 
-            PrintClient.Print(clientSql.TakeDataClient());
             while (true)
             {
                 if (changeId == 0)
                 {
+                    Console.WriteLine("Клиенты: ");
+                    PrintClient.PrintAll(clientSql.TakeDataClient());
                     Console.Write("Введите id клиента: ");
-                    changeId = Convert.ToInt32(Console.ReadLine());
+                    try
+                    {
+                        changeId = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                        changeId = 0;
+                        if (Console.ReadLine() == "...")
+                            return;
+                        Console.Clear();
+                        continue;
+                    }
                     if (!clientSql.CheckClient("id", changeId))
                     {
                         Console.WriteLine("Клиента с таким id нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                         changeId = 0;
                         if (Console.ReadLine() == "...")
                             return;
+                        Console.Clear();
                         continue;
                     }
+                    Console.Clear();
                 }
                 if(newPassport == "")
                 {
@@ -41,15 +56,19 @@ namespace MFCLibrary.useCases.ClientUseCases
                     if (newPassport.Length != 11)
                     {
                         Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                        newPassport = "";
                         if (Console.ReadLine() == "...")
                             return;
+                        Console.Clear();
                         continue;
                     }
                     if (newPassport[4] != ' ')
                     {
                         Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                        newPassport = "";
                         if (Console.ReadLine() == "...")
                             return;
+                        Console.Clear();
                         continue;
                     }
 
@@ -63,8 +82,10 @@ namespace MFCLibrary.useCases.ClientUseCases
                         catch
                         {
                             Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                            newPassport = "";
                             if (Console.ReadLine() == "...")
                                 return;
+                            Console.Clear();
                             continue;
                         }
                     }
@@ -74,13 +95,14 @@ namespace MFCLibrary.useCases.ClientUseCases
                         newPassport = "";
                         if (Console.ReadLine() == "...")
                             return;
+                        Console.Clear();
                         continue;
                     }
                 }
+                clientSql.UpdateClient("passport", newPassport, changeId);
+                Console.WriteLine("Данные клиента изменены\n");
                 break;
             }
-            clientSql.UpdateClient("passport", newPassport, changeId);
-            Console.WriteLine("Данные клиента изменены\n");
         }
     }
 }

@@ -17,7 +17,7 @@ namespace MFCLibrary.useCases.EmployeeUseCases
         {
             int deleteId = 0;
 
-            PrintEmployee.Print(employeeSql.TakeDataEmployee());
+            PrintEmployee.PrintAll(employeeSql.TakeDataEmployee());
             while (true)
             {
                 if (deleteId == 0)

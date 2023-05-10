@@ -93,7 +93,7 @@ namespace MFCLibrary.useCases.ServicesUseCases
                     numberQueue = Console.ReadLine();
                     if (numberQueue == "")
                     {
-                        Console.WriteLine("Необходимо ввести ФИО сотрудника. Попробуйте ввести снова, либо вернитесь в меню: <...>");
+                        Console.WriteLine("Необходимо ввести номер талона. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                         if (Console.ReadLine() == "...")
                             return;
                         continue;

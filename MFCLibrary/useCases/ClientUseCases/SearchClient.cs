@@ -8,6 +8,7 @@ namespace MFCLibrary.useCases.ClientUseCases
     internal class SearchClient
     {
         static ClientSql clientSql = new ClientSql();
+        static AuthorizedServicingSql authorizedServicingSql = new AuthorizedServicingSql();
         static ServicingSql servicingSql = new ServicingSql();
 
         public static void Search()
@@ -23,10 +24,11 @@ namespace MFCLibrary.useCases.ClientUseCases
                     Console.WriteLine("Критерии поиска клиента:\n1.ФИО\n2.Паспортные данные: ");
                     Console.Write("\nКритерий: ");
                     criteria = Console.ReadLine();
+                    Console.Clear();
                 }
                 if (criteria == "1")
                 {
-                    Console.Write("\nВведите ФИО клиента: ");
+                    Console.Write("Введите ФИО клиента: ");
                     search = Console.ReadLine();
 
                     if (!clientSql.CheckClient("fullnameClient", search))
@@ -35,6 +37,7 @@ namespace MFCLibrary.useCases.ClientUseCases
                         search = "";
                         if (Console.ReadLine() == "...")
                             return;
+                        Console.Clear();
                         continue;
                     }
                     if (search == "")
@@ -42,16 +45,11 @@ namespace MFCLibrary.useCases.ClientUseCases
                         Console.WriteLine("Необходимо ввести ФИО клиента. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                         if (Console.ReadLine() == "...")
                             return;
+                        Console.Clear();
                         continue;
                     }
-
-                    clientId = Convert.ToInt32(clientSql.TakeValueClient("id", "fullnameClient", search));
                     Console.Clear();
-                    Console.WriteLine("Данные клиента:");
-                    PrintClient.Print(clientSql.TakeDataClient(), clientId);
-
-                    Console.WriteLine("Оказанные услуги: ");
-                    PrintServicing.Print(servicingSql.TakeDataServicing(), "clientId", clientId);
+                    clientId = Convert.ToInt32(clientSql.TakeValueClient("id", "fullnameClient", search));
                 }
                 if (criteria == "2")
                 {
@@ -63,6 +61,7 @@ namespace MFCLibrary.useCases.ClientUseCases
                         search = "";
                         if (Console.ReadLine() == "...")
                             return;
+                        Console.Clear();
                         continue;
                     }
                     if (search == "")
@@ -70,15 +69,20 @@ namespace MFCLibrary.useCases.ClientUseCases
                         Console.WriteLine("Необходимо ввести паспортные данные клиента. Попробуйте ввести снова, либо вернитесь в меню: <...>");
                         if (Console.ReadLine() == "...")
                             return;
+                        Console.Clear();
                         continue;
                     }
+                    Console.Clear();
                     clientId = Convert.ToInt32(clientSql.TakeValueClient("id", "passport", search));
                     Console.Clear();
-                    Console.WriteLine("Данные клиента:");
-                    PrintClient.Print(clientSql.TakeDataClient(), clientId);
-                    Console.WriteLine("Оказанные услуги: ");
-                    PrintServicing.Print(servicingSql.TakeDataServicing(), "clientId", clientId);
                 }
+                Console.WriteLine("Данные клиента:");
+                PrintClient.PrintById(clientSql.TakeDataClient(), clientId);
+                Console.WriteLine("Оказанные услуги: ");
+                if (!Convert.ToBoolean(clientSql.TakeValueClient("isAuthorized", "id", clientId)))
+                    PrintServicing.Print(servicingSql.TakeDataServicing(), "clientId", clientId);
+                else
+                    PrintAutorizedServicing.Print(authorizedServicingSql.TakeDataAuthorizedServicing(), "clientId", clientId);
                 break;
             }
         }

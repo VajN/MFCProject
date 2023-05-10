@@ -2,7 +2,7 @@
 {
     internal static class PrintClient
     {
-        internal static void Print(List<string[]> lists)
+        internal static void PrintAll(List<string[]> lists)
         {
             foreach (string[] list in lists)
             {
@@ -10,7 +10,29 @@
                 Console.WriteLine("==========================================");
             }
         }
-        internal static void Print(List<string[]> lists, int id)
+        internal static void PrintOrdinary(List<string[]> lists)
+        {
+            foreach (string[] list in lists)
+            {
+                if (!Convert.ToBoolean(list[3]))
+                {
+                    Console.WriteLine($"ID: {list[0]}| ФИО: {list[1]}| Паспорт: {list[2]}");
+                    Console.WriteLine("==========================================");
+                }
+            }
+        }
+        internal static void PrintSpecial(List<string[]> lists)
+        {
+            foreach (string[] list in lists)
+            {
+                if (Convert.ToBoolean(list[3]))
+                {
+                    Console.WriteLine($"ID: {list[0]}| ФИО: {list[1]}| Паспорт: {list[2]}");
+                    Console.WriteLine("==========================================");
+                }
+            }
+        }
+        internal static void PrintById(List<string[]> lists, int id)
         {
             foreach (string[] list in lists)
             {
