@@ -1,4 +1,4 @@
-﻿namespace MFCLibrary.Data.Models
+﻿namespace MFCLibrary.Models
 {
     internal class Service
     {

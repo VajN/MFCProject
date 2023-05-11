@@ -1,6 +1,7 @@
 ﻿
 
 using MFCLibrary.DataBase.SqlActions;
+using MFCLibrary.Models;
 using MFCLibrary.useCases.Unique;
 
 namespace MFCLibrary.useCases.EmployeeUseCases
@@ -20,18 +21,7 @@ namespace MFCLibrary.useCases.EmployeeUseCases
                 if (changeId == 0)
                 {
                     Console.Write("Введите id сотрудника: ");
-                    try
-                    {
-                        changeId = Convert.ToInt32(Console.ReadLine());
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Неверный формат. Попробуйте ввести снова, либо вернитесь в меню: <...>");
-                        if (Console.ReadLine() == "...")
-                            break;
-                        Console.Clear();
-                        continue;
-                    }
+                    changeId = Convert.ToInt32(Console.ReadLine());
                     if (!employeeSql.CheckEmployee("id", changeId))
                     {
                         Console.WriteLine("Сотрудника с таким id нет в базе данных. Попробуйте ввести снова, либо вернитесь в меню: <...>");

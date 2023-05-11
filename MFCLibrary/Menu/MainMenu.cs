@@ -25,8 +25,7 @@ namespace MFCLibrary.Menu
                 "8. Поиск операции обслуживания\n" +
                 "9. Просмотр статистики обслуживания\n" +
                 "10. Удаление сотрудника из базы\n" +
-                "11. Удаление услуги\n" +
-                "12. Настройки");
+                "11. Удаление услуги\n");
                 Console.Write("Выбор действия: ");
                 temp = Console.ReadLine();
                 switch (temp)
@@ -74,10 +73,6 @@ namespace MFCLibrary.Menu
                     case "11":
                         Console.Clear();
                         DeleteService.Delete();
-                        break;
-                    case "12":
-                        Console.Clear();
-                        SettingMenu.Settings();
                         break;
                 }
                 if (temp != "")
