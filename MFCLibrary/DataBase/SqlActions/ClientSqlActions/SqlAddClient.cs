@@ -1,5 +1,5 @@
 ﻿using DataBase;
-using MFCLibrary.Models;
+using MFCLibrary.Data.Models;
 
 namespace MFCLibrary.DataBase.SqlActions.ClientSqlActions
 {

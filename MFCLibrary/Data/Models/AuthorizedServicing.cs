@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MFCLibrary.Models
+namespace MFCLibrary.Data.Models
 {
     internal class AuthorizedServicing
     {

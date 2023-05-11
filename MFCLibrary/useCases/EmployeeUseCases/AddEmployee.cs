@@ -1,5 +1,5 @@
-﻿using MFCLibrary.DataBase.SqlActions;
-using MFCLibrary.Models;
+﻿using MFCLibrary.Data.Models;
+using MFCLibrary.DataBase.SqlActions;
 
 
 namespace MFCLibrary.useCases.EmployeeUseCases

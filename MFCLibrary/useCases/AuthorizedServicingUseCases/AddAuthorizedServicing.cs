@@ -1,5 +1,5 @@
-﻿using MFCLibrary.DataBase.SqlActions;
-using MFCLibrary.Models;
+﻿using MFCLibrary.Data.Models;
+using MFCLibrary.DataBase.SqlActions;
 using MFCLibrary.useCases.Unique;
 using System;
 using System.Collections.Generic;

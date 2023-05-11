@@ -1,7 +1,7 @@
 ﻿using DataBase;
+using MFCLibrary.Data.Models;
 using MFCLibrary.DataBase.SqlActions.AuthorizedServisingSqlActions;
 using MFCLibrary.DataBase.SqlActions.ServicingSqlActions;
-using MFCLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

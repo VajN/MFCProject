@@ -1,5 +1,5 @@
 ﻿using DataBase;
-using MFCLibrary.Models;
+using MFCLibrary.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

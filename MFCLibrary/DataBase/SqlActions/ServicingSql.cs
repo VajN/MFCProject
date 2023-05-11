@@ -1,6 +1,6 @@
 ﻿using DataBase;
+using MFCLibrary.Data.Models;
 using MFCLibrary.DataBase.SqlActions.ServicingSqlActions;
-using MFCLibrary.Models;
 
 namespace MFCLibrary.DataBase.SqlActions
 {

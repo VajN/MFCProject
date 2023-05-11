@@ -1,4 +1,4 @@
-﻿namespace MFCLibrary.Models
+﻿namespace MFCLibrary.Data.Models
 {
     internal class Servicing
     {
@@ -8,7 +8,7 @@
         internal string serviceName { get; private set; } = "";
         internal int clientId { get; private set; } = 0;
         internal string numberQueue { get; private set; } = "";
-        internal Servicing(int employeeId, string windowNumber, DateTime dateTime, 
+        internal Servicing(int employeeId, string windowNumber, DateTime dateTime,
             string serviceName, int clientId, string numberQueue)
         {
             this.employeeId = employeeId;

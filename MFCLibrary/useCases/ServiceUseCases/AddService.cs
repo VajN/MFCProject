@@ -1,7 +1,7 @@
 ﻿using MFCLibrary.DataBase.SqlActions;
 using MFCLibrary.DataBase;
 using DataBase;
-using MFCLibrary.Models;
+using MFCLibrary.Data.Models;
 
 namespace MFCLibrary.useCases.ServiceUseCases
 {
